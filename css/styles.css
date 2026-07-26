@@ -1,0 +1,649 @@
+/* ============================================================
+   Munay Ki · Reservas
+   Dirección de diseño: "papel artesanal + bosque"
+   Cálido, hecho a mano, natural — nada de gris corporativo.
+   Paleta en OKLCH · tipografía Caprasimo + Atkinson Hyperlegible
+   ============================================================ */
+
+:root {
+  /* --- Color (OKLCH, tintado hacia el verde de marca) --- */
+  --paper: oklch(0.955 0.014 100);       /* crema papel */
+  --surface: oklch(0.985 0.008 105);     /* casi blanco tibio */
+  --ink: oklch(0.33 0.025 145);          /* verde-marrón profundo */
+  --ink-soft: oklch(0.48 0.02 140);
+  --forest: oklch(0.42 0.065 155);
+  --forest-deep: oklch(0.28 0.05 158);
+  --forest-ink-on-dark: oklch(0.94 0.012 110);
+  --clay: oklch(0.56 0.115 52);          /* terracota: SOLO acentos */
+  --line: oklch(0.885 0.012 108);
+  --danger: oklch(0.52 0.13 38);
+  --ok-bg: oklch(0.93 0.028 150);
+  --ok-ink: oklch(0.40 0.065 155);
+  --warn-bg: oklch(0.95 0.045 92);
+  --warn-ink: oklch(0.47 0.08 72);
+  --neutral-bg: oklch(0.93 0.008 110);
+  --neutral-ink: oklch(0.50 0.015 130);
+  --wa: oklch(0.63 0.155 152);
+
+  /* --- Espaciado (escala 4pt, nombres semánticos) --- */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* --- Tipografía (escala fija para UI de producto, ratio ~1.25) --- */
+  --font-display: 'Caprasimo', Georgia, serif;
+  --font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --t-micro: 0.72rem;   /* 11.5 — micro-labels en mayúsculas */
+  --t-sm: 0.82rem;      /* 13 */
+  --t-base: 1.0625rem;  /* 17 — cómodo para lectores grandes */
+  --t-md: 1.3rem;       /* 21 */
+  --t-lg: 1.65rem;      /* 26 */
+  --t-xl: 2.05rem;      /* 33 */
+
+  --radius: 10px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: oklch(0.85 0.06 70);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--t-base);
+  line-height: 1.5;
+  color: var(--ink);
+  background-color: var(--paper);
+  /* Textura de papel: ruido SVG sutil, hecho a mano, no "gradiente IA" */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+
+.app-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
+  background: var(--forest-deep);
+  color: var(--forest-ink-on-dark);
+}
+
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.brand-sub {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: var(--clay);
+  /* El acento vive acá y en pocos lugares más: por eso se nota */
+}
+
+/* Cenefa andina: zigzag tejido, guiño al nombre quechua */
+.brand-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' viewBox='0 0 24 8'%3E%3Cpath d='M0 8 L4 2 L8 8 L12 2 L16 8 L20 2 L24 8' fill='none' stroke='%23c98a5e' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+}
+
+/* ---------- Layout ---------- */
+
+main {
+  padding-bottom: calc(88px + env(safe-area-inset-bottom));
+}
+
+.page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  font-weight: 400;
+  margin: 0;
+  color: var(--ink);
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-md);
+  color: var(--ink);
+}
+
+/* Micro-etiquetas: mayúsculas solo para textos cortos */
+.micro {
+  margin: var(--space-lg) 0 var(--space-xs);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- Nav inferior ---------- */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav a {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-2xs);
+  min-height: 58px;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.bottom-nav a svg {
+  width: 22px;
+  height: 22px;
+}
+
+.bottom-nav a.active {
+  color: var(--forest);
+}
+
+/* El puntito terracota: el acento que marca dónde estás */
+.bottom-nav a.active::before {
+  content: '';
+  position: absolute;
+  top: var(--space-2xs);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--clay);
+}
+
+/* ---------- Botones ---------- */
+
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--t-base);
+  font-family: inherit;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease-out), background 0.15s var(--ease-out);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--forest-ink-on-dark);
+  font-weight: 700;
+}
+
+.btn-primary:active {
+  background: var(--forest-deep);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--forest);
+}
+
+.btn-wa {
+  background: var(--wa);
+  border-color: var(--wa);
+  color: var(--forest-ink-on-dark);
+  font-weight: 700;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-sm);
+}
+
+/* ---------- Cards, badges, estados ---------- */
+
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  color: inherit;
+  text-decoration: none;
+  /* Entrada escalonada: la coreografía de carga que da vida */
+  animation: rise 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+.card[data-edit] {
+  cursor: pointer;
+}
+
+.card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.card-top strong {
+  font-size: var(--t-md);
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.card-dates {
+  margin-top: var(--space-2xs);
+  font-size: var(--t-sm);
+  color: var(--ink-soft);
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.card .btn-wa {
+  margin-top: var(--space-sm);
+  min-height: 44px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--t-sm);
+}
+
+.badge {
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: 999px;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.badge-confirmada {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.badge-pendiente {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.badge-cancelada {
+  background: var(--neutral-bg);
+  color: var(--neutral-ink);
+}
+
+.badge-cabin {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.badge-cabin::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: var(--c, var(--forest));
+}
+
+.saldo {
+  font-weight: 700;
+  color: var(--clay);
+}
+
+/* Empty states que ENSEÑAN, no solo dicen "no hay nada" */
+.empty {
+  padding: var(--space-xl) var(--space-lg);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.empty strong {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-md);
+  color: var(--ink);
+}
+
+/* ---------- Calendario ---------- */
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.cal-header h2 {
+  text-transform: capitalize;
+}
+
+.btn-nav {
+  min-width: 48px;
+  font-size: var(--t-md);
+  line-height: 1;
+  padding: var(--space-xs);
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-wd {
+  text-align: center;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  padding: var(--space-2xs) 0;
+}
+
+.cal-day {
+  display: flex;
+  flex-direction: column;
+  min-height: 62px;
+  padding: var(--space-2xs) 2px 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cal-day .num {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--ink);
+  padding-left: 3px;
+}
+
+.cal-day.otro-mes {
+  opacity: 0.35;
+}
+
+.cal-day.hoy {
+  border-color: var(--clay);
+}
+
+.cal-day.hoy .num {
+  color: var(--clay);
+}
+
+.cal-day.seleccionado {
+  outline: 2px solid var(--forest);
+  outline-offset: -2px;
+}
+
+/* Barras de estadía: cruzan los días como en los sistemas hoteleros */
+.bars {
+  display: grid;
+  grid-template-rows: repeat(var(--n-cabins, 2), 12px);
+  gap: 2px;
+  margin-top: auto;
+}
+
+.bar {
+  display: block;
+  height: 12px;
+  background: var(--c);
+  /* Cada cabaña vive en su fila: fila 1 = cabaña 1, etc. */
+}
+
+.bar.pendiente {
+  opacity: 0.45;
+}
+
+.bar-start {
+  border-radius: 6px 0 0 6px;
+  margin-left: 1px;
+}
+
+.bar-end {
+  border-radius: 0 6px 6px 0;
+  margin-right: 1px;
+}
+
+.bar-solo {
+  border-radius: 6px;
+  margin: 0 1px;
+}
+
+.bar-name {
+  display: block;
+  padding: 0 4px;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 12px;
+  color: oklch(0.97 0.01 105);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-detail {
+  margin-top: var(--space-lg);
+  animation: rise 0.4s var(--ease-out) both;
+}
+
+.day-detail h3 {
+  margin: 0 0 var(--space-sm);
+  text-transform: capitalize;
+}
+
+/* ---------- Formularios ---------- */
+
+.form label {
+  display: block;
+  margin-bottom: var(--space-md);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  color: var(--ink-soft);
+}
+
+.form input,
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-2xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 16px; /* evita el zoom automático en iPhone */
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: 2px solid var(--forest);
+  outline-offset: -1px;
+  border-color: var(--forest);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.form-error {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius);
+  background: oklch(0.95 0.03 40);
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* El "ticket": el resumen de la estadía como recibo de comercio familiar */
+.ticket {
+  margin: var(--space-sm) 0 var(--space-md);
+  padding: var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.ticket-line {
+  display: block;
+  font-size: var(--t-sm);
+  color: var(--ink-soft);
+}
+
+.ticket-total {
+  display: block;
+  margin-top: var(--space-2xs);
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.ticket-saldo {
+  display: block;
+  margin-top: var(--space-xs);
+  padding-top: var(--space-xs);
+  border-top: 1.5px dashed var(--line);
+  font-weight: 700;
+  color: var(--clay);
+}
+
+.hint {
+  font-weight: 400;
+  font-size: var(--t-sm);
+  color: var(--ink-soft);
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-weight: 700;
+  text-align: center;
+}
+
+.config-section {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--line);
+}
+
+.config-section:last-of-type {
+  border-bottom: none;
+}
+
+/* ---------- Movimiento ---------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
