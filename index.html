@@ -1,57 +1,591 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Munay Ki · Reservas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Munay Ki · Cabañas en San José, Entre Ríos</title>
+<meta name="description" content="Cabañas en San José, Entre Ríos. A 1.5 km de las Termas, rodeadas de eucaliptos y con atardecer sobre el río. «Te quiero» en quechua.">
+<meta property="og:title" content="Munay Ki · Cabañas en San José, Entre Ríos">
+<meta property="og:description" content="A 1.5 km de las Termas de San José. Cabañas cálidas, hechas para descansar.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Paleta papel artesanal + bosque */
+    --forest: oklch(0.42 0.065 155);
+    --forest-dark: oklch(0.32 0.06 155);
+    --forest-deep: oklch(0.26 0.05 155);
+    --forest-soft: oklch(0.55 0.04 155);
+    --clay: oklch(0.56 0.115 52);
+    --clay-soft: oklch(0.72 0.08 52);
+    --clay-deep: oklch(0.45 0.12 48);
+    --paper: oklch(0.955 0.014 100);
+    --paper-2: oklch(0.93 0.02 100);
+    --paper-warm: oklch(0.91 0.025 85);
+    --line: oklch(0.85 0.015 100);
+    --ink: oklch(0.22 0.02 50);
+    --ink-soft: oklch(0.4 0.015 50);
+    /* Espaciado escala 4pt semántica */
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 4rem;
+    --space-3xl: 6rem;
+    --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    background: var(--paper);
+    color: var(--ink);
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.35 0 0 0 0.05 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap"
-    rel="stylesheet">
+  /* TIPOGRAFÍA */
+  h1, h2, h3, .display {
+    font-family: 'Caprasimo', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    color: var(--forest-dark);
+  }
 
-  <link rel="stylesheet" href="css/styles.css">
+  /* CENefa ZIGZAG ANDINA */
+  .border-andina {
+    height: 14px;
+    background:
+      linear-gradient(135deg, var(--forest) 25%, transparent 25%) -7px 0,
+      linear-gradient(225deg, var(--forest) 25%, transparent 25%) -7px 0,
+      linear-gradient(315deg, var(--forest) 25%, transparent 25%),
+      linear-gradient(45deg, var(--forest) 25%, transparent 25%);
+    background-size: 14px 14px;
+    background-color: var(--clay);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: oklch(0.955 0.014 100 / 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.9rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .logo {
+    font-family: 'Caprasimo', Georgia, serif;
+    font-size: 1.4rem;
+    color: var(--forest-dark);
+    line-height: 1;
+  }
+  .logo em { color: var(--clay); font-style: normal; font-size: 0.9rem; display: block; margin-top: 2px; }
+  nav a.cta-nav {
+    background: var(--forest);
+    color: var(--paper);
+    padding: 0.7rem 1.1rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-height: 48px;
+    display: inline-flex; align-items: center;
+    transition: all .2s;
+  }
+  nav a.cta-nav:hover { background: var(--forest-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    padding: 8rem 1.5rem 4rem;
+    background: linear-gradient(180deg,
+      oklch(0.75 0.14 55) 0%,
+      oklch(0.68 0.15 52) 25%,
+      oklch(0.5 0.12 48) 55%,
+      var(--forest-deep) 100%);
+    color: var(--paper);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 75% 20%, oklch(0.85 0.15 65 / 0.35), transparent 55%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='400' height='400' filter='url(%23n)'/></svg>");
+    pointer-events: none;
+  }
+  .hero-content { grid-column: 1 / 2; position: relative; z-index: 1; max-width: 560px; }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 0.92;
+    margin-bottom: var(--space-md);
+    color: var(--paper);
+  }
+  .hero h1 em { font-style: normal; color: oklch(0.92 0.05 80); }
+  .hero .subtitulo {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-lg);
+    max-width: 440px;
+    opacity: 0.95;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 1.3rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-height: 48px;
+    border: none; cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-primary { background: var(--clay); color: var(--paper); }
+  .btn-primary:hover { background: oklch(0.5 0.13 48); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--paper);
+    border: 1.5px solid oklch(0.95 0.01 100 / 0.4);
+  }
+  .btn-ghost:hover { background: oklch(0.95 0.01 100 / 0.12); }
+
+  /* MARCA GIGANTE DERECHA */
+  .hero-marca {
+    grid-column: 2 / 3;
+    align-self: start;
+    justify-self: end;
+    padding-top: 2rem;
+    position: relative; z-index: 1;
+    text-align: right;
+  }
+  .hero-marca .quechua {
+    font-family: 'Caprasimo', serif;
+    font-size: clamp(3rem, 13vw, 8rem);
+    line-height: 0.85;
+    color: oklch(0.95 0.01 100 / 0.15);
+    letter-spacing: -.05em;
+    text-align: right;
+  }
+
+  /* SELLO / STAMP */
+  .stamp {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border: 2px solid var(--clay);
+    color: var(--clay);
+    font-family: 'Caprasimo', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: var(--space-md);
+  }
+
+  /* SECCIONES */
+  section { padding: var(--space-3xl) 1.5rem; max-width: 1200px; margin: 0 auto; }
+  .etiqueta {
+    color: var(--clay);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+  h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.05;
+    max-width: 16ch;
+  }
+  .intro-seccion {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-top: var(--space-md);
+    font-size: 1.05rem;
+  }
+
+  /* EL LUGAR — asimétrica */
+  .lugar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+    margin-top: var(--space-xl);
+  }
+  .lugar-texto h2 { margin-bottom: var(--space-md); }
+  .lugar-texto p { margin-bottom: var(--space-md); }
+  .lugar-texto .dato {
+    display: flex; align-items: baseline; gap: 0.6rem;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--line);
+  }
+  .lugar-texto .dato .numero {
+    font-family: 'Caprasimo', serif;
+    font-size: 3.5rem;
+    color: var(--clay);
+    line-height: 1;
+  }
+  .lugar-texto .dato .unidad {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* GALERÍA — placeholders diseñados (no "falta foto") */
+  .galeria-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .galeria-item {
+    aspect-ratio: 3/4;
+    border-radius: var(--radius);
+    display: flex; align-items: end; justify-content: flex-start;
+    padding: var(--space-md);
+    color: var(--paper);
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .galeria-item::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.25));
+  }
+  .galeria-item span { position: relative; z-index: 1; }
+  .galeria-item:nth-child(1) { background: linear-gradient(135deg, #c97847, #8b3f2a); }
+  .galeria-item:nth-child(2) { transform: translateY(1.5rem); background: linear-gradient(135deg, #6b9c7a, #2d4a36); }
+  .galeria-item:nth-child(3) { transform: translateY(-0.5rem); background: linear-gradient(135deg, #b8956a, #6b4f2a); }
+  .galeria-item:nth-child(4) { background: linear-gradient(135deg, var(--clay), var(--forest-dark)); }
+  .galeria-item:nth-child(5) { transform: translateY(1rem); background: linear-gradient(135deg, #d4755a, #5a2a1a); }
+  .galeria-item:nth-child(6) { background: linear-gradient(135deg, #4a7c59, #1a2a1a); }
+
+  /* CABAÑAS — ticket/recibo */
+  .cabana {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-top: var(--space-xl);
+    overflow: hidden;
+  }
+  .cabana-header {
+    background: var(--forest-dark);
+    color: var(--paper);
+    padding: var(--space-lg) var(--space-xl);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cabana-header h3 {
+    font-size: 1.6rem;
+    color: var(--paper);
+    margin: 0;
+  }
+  .cabana-header .plazas {
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .cabana-body {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+  }
+  .cabana-foto {
+    aspect-ratio: 4/3;
+    border-radius: calc(var(--radius) - 2px);
+    background: linear-gradient(135deg, var(--clay-soft), var(--clay));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--paper);
+    font-size: 0.9rem;
+  }
+  .cabana-info .dist {
+    font-family: 'Caprasimo', serif;
+    font-size: 1.3rem;
+    color: var(--forest-dark);
+    margin-bottom: var(--space-sm);
+  }
+  .cabana-lista {
+    list-style: none;
+    columns: 2;
+    column-gap: var(--space-md);
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-top: var(--space-sm);
+  }
+  .cabana-lista li { padding: 0.2rem 0; break-inside: avoid; }
+  .cabana-lista li::before {
+    content: "✓";
+    color: var(--forest);
+    font-weight: 700;
+    margin-right: 0.4rem;
+  }
+  .cabana-precio {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 2px dashed var(--line);
+  }
+  .cabana-precio .valor {
+    font-family: 'Caprasimo', serif;
+    font-size: 2.8rem;
+    color: var(--clay);
+    line-height: 1;
+  }
+  .cabana-precio .unidad {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+  .pendiente {
+    color: var(--clay);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: oklch(0.94 0.04 80);
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* TERMAS — full bleed */
+  .termas-full {
+    background: linear-gradient(135deg, var(--forest-deep), var(--forest-dark));
+    color: var(--paper);
+    padding: var(--space-3xl) 1.5rem;
+    margin-top: var(--space-2xl);
+  }
+  .termas-full .inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+  .termas-full .etiqueta { color: oklch(0.75 0.05 100); }
+  .termas-full h2 { color: var(--paper); margin: 0 auto; }
+  .termas-full .distancia {
+    font-family: 'Caprasimo', serif;
+    font-size: clamp(5rem, 15vw, 9rem);
+    color: oklch(0.85 0.1 65);
+    line-height: 0.95;
+    margin: var(--space-lg) 0;
+  }
+  .termas-full p {
+    opacity: 0.9;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  /* CONTACTO */
+  .contacto {
+    margin-top: var(--space-2xl);
+    padding: var(--space-2xl);
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-align: left;
+  }
+  .contacto h2 { color: var(--forest-dark); }
+  .contacto p {
+    color: var(--ink-soft);
+    margin-top: var(--space-md);
+    max-width: 50ch;
+  }
+  .contacto-cta {
+    display: flex; flex-wrap: wrap; gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+  .contacto .btn-primary { background: var(--clay); }
+  .contacto .btn-primary:hover { background: oklch(0.5 0.13 48); }
+  .contacto .btn-ghost {
+    color: var(--forest-dark);
+    border-color: var(--forest-soft);
+  }
+  .contacto .btn-ghost:hover { background: oklch(0.42 0.065 155 / 0.1); }
+  .contacto .direccion {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    margin-top: var(--space-md);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--forest-deep);
+    color: var(--paper);
+    text-align: center;
+    padding: var(--space-xl) 1.5rem;
+    font-size: 0.88rem;
+  }
+  footer .footer-logo {
+    font-family: 'Caprasimo', serif;
+    font-size: 1.6rem;
+    margin-bottom: var(--space-xs);
+  }
+  footer .footer-logo em { color: var(--clay); font-style: normal; }
+  footer p { opacity: 0.85; }
+
+  /* ANIMACIÓN */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: revealIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .reveal:nth-child(2) { animation-delay: 0.1s; }
+    .reveal:nth-child(3) { animation-delay: 0.2s; }
+    .reveal:nth-child(4) { animation-delay: 0.3s; }
+    .reveal:nth-child(5) { animation-delay: 0.4s; }
+    .reveal:nth-child(6) { animation-delay: 0.5s; }
+    @keyframes revealIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 760px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: 85vh;
+      padding: 7rem 1.25rem 3rem;
+    }
+    .hero-marca { display: none; }
+    .lugar-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+    .galeria-stack { grid-template-columns: 1fr 1fr; }
+    .galeria-item:nth-child(2) { transform: none; }
+    .galeria-item:nth-child(3) { transform: none; }
+    .galeria-item:nth-child(5) { transform: none; }
+    .cabana-body { grid-template-columns: 1fr; gap: var(--space-lg); padding: var(--space-lg); }
+    .cabana-lista { columns: 1; }
+    section { padding: var(--space-2xl) 1.25rem; }
+    .termas-full { padding: var(--space-2xl) 1.25rem; }
+    .contacto { padding: var(--space-xl) 1.5rem; }
+  }
+</style>
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand-block">
-      <span class="brand">Munay Ki</span>
-      <span class="brand-sub">«Te quiero» en quechua · San José, Entre Ríos</span>
+
+<nav>
+  <div class="logo">Munay Ki <em>te quiero</em></div>
+  <a href="#reservar" class="cta-nav">Reservar</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="stamp">San José · Entre Ríos</div>
+    <h1>Tu lugar en <em>el campo</em></h1>
+    <p class="subtitulo">Dos cabañas a 1.5 km de las Termas, con el río cerca y eucaliptos por todos lados. Donde el tiempo se detiene.</p>
+    <div class="hero-cta">
+      <a href="https://vvalenromero.github.io/munay-ki/app/"
+      class="btn btn-primary">Reservar</a>
+      <a href="https://wa.me/5493447408342?text=Hola%20Romina%2C%20quiero%20reservar%20en%20Munay%20Ki" class="btn btn-ghost" target="_blank">WhatsApp</a>
     </div>
-    <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 1.5 22.5 12 12 22.5 1.5 12Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M12 7 17 12 12 17 7 12Z" fill="currentColor"/>
-    </svg>
-    <div class="brand-strip" aria-hidden="true"></div>
-  </header>
+  </div>
+  <div class="hero-marca" aria-hidden="true">
+    <div class="quechua">Munay<br>Ki</div>
+  </div>
+</header>
 
-  <main id="app"></main>
+<div class="border-andina"></div>
 
-  <nav class="bottom-nav">
-    <a href="#/" data-nav="cal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-        <rect x="3" y="5" width="18" height="16" rx="2.5"/>
-        <path d="M3 10h18M8 3v4M16 3v4"/>
-      </svg>
-      <span>Calendario</span>
-    </a>
-    <a href="#/reservas" data-nav="res">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-        <path d="M4 6h16M4 12h16M4 18h10"/>
-      </svg>
-      <span>Reservas</span>
-    </a>
-    <a href="#/config" data-nav="cfg">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-        <path d="M4 8h9M19 8h1M4 16h3M13 16h7"/>
-        <circle cx="16" cy="8" r="2.2"/>
-        <circle cx="10" cy="16" r="2.2"/>
-      </svg>
-      <span>Config</span>
-    </a>
-  </nav>
+<section>
+  <div class="lugar-grid">
+    <div class="lugar-texto">
+      <p class="etiqueta">El lugar</p>
+      <h2>Donde el tiempo se detiene</h2>
+      <p>Estamos en San José, Entre Ríos, a un paso de las Termas y del río Uruguay. El campo alrededor tiene eucaliptos, atardeceres que no se cansan, y silencio del bueno.</p>
+      <p>Volvés de las termas y te encontrás con esto: el ruido de los pájaros, una hamaca, una jarra con algo fresco. Nada más.</p>
+      <div class="dato">
+        <span class="numero">1,5</span>
+        <span class="unidad">km de las Termas de San José</span>
+      </div>
+    </div>
+    <div class="galeria-stack">
+      <div class="galeria-item reveal"><span>Atardecer</span></div>
+      <div class="galeria-item reveal"><span>Jardín</span></div>
+      <div class="galeria-item reveal"><span>Cabaña</span></div>
+      <div class="galeria-item reveal"><span>Habitación</span></div>
+      <div class="galeria-item reveal"><span>Cocina</span></div>
+      <div class="galeria-item reveal"><span>Baño</span></div>
+    </div>
+  </div>
+</section>
 
-  <script type="module" src="js/app.js"></script>
+<div class="border-andina"></div>
+
+<section>
+  <p class="etiqueta">Las cabañas</p>
+  <h2>Dos iguales, para 4 personas</h2>
+  <p class="intro-seccion">Misma distribución, mismo equipamiento. Elegí la que más te guste según el día.</p>
+
+  <div class="cabana">
+    <div class="cabana-header">
+      <h3>Cabaña</h3>
+      <span class="plazas">4 plazas</span>
+    </div>
+    <div class="cabana-body">
+      <div class="cabana-foto">Foto interior</div>
+      <div class="cabana-info">
+        <div class="dist">1 dormitorio con cama matrimonial + sillón-cama en el living</div>
+        <ul class="cabana-lista">
+          <li>Sábanas y toallas</li>
+          <li>Cocina equipada</li>
+          <li>TV y WiFi</li>
+          <li>Agua caliente</li>
+          <li>Aire acondicionado</li>
+          <li>Cochera</li>
+          <li>Parque</li>
+        </ul>
+        <div class="cabana-precio">
+          <div class="valor">$60.000</div>
+          <div class="unidad">por noche · por cabaña completa</div>
+        </div>
+        <div class="pendiente">[Pendiente: precio temporada alta y seña]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="termas-full">
+  <div class="inner">
+    <p class="etiqueta">Termas de San José</p>
+    <div class="distancia">1,5 km</div>
+    <p>A minutos de las termas, sin estar pegados al ruido. Volvés y tenés campo, río y silencio.</p>
+  </div>
+</div>
+
+<section>
+  <p class="etiqueta">Reservar</p>
+  <div class="contacto" id="reservar">
+    <h2>Tu próxima escapada empieza acá</h2>
+    <p>Escribinos por WhatsApp y te respondemos al toque. También podés usar el sistema de reservas online para ver disponibilidad al instante.</p>
+    <div class="contacto-cta">
+      <a href="https://wa.me/5493447408342?text=Hola%20Romina%2C%20quiero%20reservar%20en%20Munay%20Ki" class="btn btn-primary" target="_blank">WhatsApp</a>
+      <a href="https://vvalenromero.github.io/munay-ki/app/" class="btn btn-ghost" target="_blank">Reservas online</a>
+    </div>
+    <p class="direccion">Dr Antelo entre Evequoz y Sarmiento · San José, Entre Ríos</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Munay Ki <em>te quiero</em></div>
+  <p>San José, Entre Ríos · Argentina</p>
+  <p style="opacity: 0.6; margin-top: 0.5rem; font-size: 0.8rem;">© 2026 Munay Ki · Cabañas · Por Romina Medina</p>
+</footer>
+
+<!--
+  ====================================================================
+  DATOS PENDIENTES (completar con Romina el miércoles):
+  ====================================================================
+  1. Confirmar WhatsApp: 3447408342 vs 03447 40-6842 (Google Maps)
+  2. Mail de contacto (opcional)
+  3. Precio temporada alta
+  4. Seña y forma de pago
+  5. Distancia a Concepción del Uruguay
+  6. Actividades cerca (pesca, termas, etc.)
+  7. Diferencial (por qué elegir Munay Ki)
+  8. Reemplazar placeholders de galeria por fotos reales
+  9. Reemplazar "Foto interior" de la cabaña por foto real
+  ====================================================================
+-->
+
 </body>
 </html>
