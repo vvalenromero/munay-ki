@@ -1,0 +1,6 @@
+{
+  "name": "munayki-reservas",
+  "private": true,
+  "type": "module",
+  "description": "Sistema interno de reservas del complejo Munay Ki (San José, Entre Ríos). Sitio estático sin build."
+}
