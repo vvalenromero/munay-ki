@@ -19,7 +19,7 @@ export function renderConfig(container) {
                   ? ' · ' + lastSyncAt.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
                   : ''
               }`
-            : '📴 Sin conexión. Los cambios se guardan en este dispositivo y se suben solos cuando vuelva internet.'
+            : '📴 Modo local: los datos se guardan en este dispositivo. Bajá un respaldo desde acá para no depender de un solo teléfono.'
         }
       </p>
       <form id="form-config" class="form">

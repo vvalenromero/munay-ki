@@ -21,9 +21,14 @@ const HEADERS = {
 let lastSyncAt = null;
 let online = false;
 let busy = false;
+// Si la nube no responde varias veces seguidas, dejamos de intentar: la app es
+// local-first y no tiene sentido golpear una puerta que ya no existe.
+let syncDisponible = true;
+let fallosSeguidos = 0;
+const MAX_FALLOS = 3;
 
 export function syncStatus() {
-  return { online, lastSyncAt };
+  return { online, lastSyncAt, disponible: syncDisponible };
 }
 
 // ---- cola de pendientes (sobrevive aunque cierren la app) ----
@@ -158,6 +163,7 @@ function sameData(a, b) {
 // ---- ciclo principal ----
 export function initSync(onRemoteUpdate) {
   setChangeListener(onLocalChange);
+  let timer = null;
 
   async function cycle() {
     if (busy) return;
@@ -189,15 +195,23 @@ export function initSync(onRemoteUpdate) {
 
       online = true;
       lastSyncAt = new Date();
+      fallosSeguidos = 0;
     } catch {
-      // Sin internet o Supabase caído: la app sigue con los datos locales
+      // Sin internet o nube caída: la app sigue con los datos locales.
       online = false;
+      fallosSeguidos++;
+      if (fallosSeguidos >= MAX_FALLOS) {
+        syncDisponible = false;
+        if (timer) clearInterval(timer);
+      }
     } finally {
       busy = false;
     }
   }
 
   cycle();
-  setInterval(cycle, POLL_MS);
-  window.addEventListener('online', cycle);
+  timer = setInterval(cycle, POLL_MS);
+  window.addEventListener('online', () => {
+    if (syncDisponible) cycle();
+  });
 }
