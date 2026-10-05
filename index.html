@@ -148,11 +148,14 @@
     grid-template-columns: 1fr 1fr;
     align-items: end;
     padding: 8rem 1.5rem 4rem;
-    background: linear-gradient(180deg,
-      oklch(0.75 0.14 55) 0%,
-      oklch(0.68 0.15 52) 25%,
-      oklch(0.5 0.12 48) 55%,
-      var(--forest-deep) 100%);
+    background:
+      linear-gradient(180deg,
+        oklch(0.72 0.14 55 / 0.26) 0%,
+        oklch(0.5 0.12 48 / 0.5) 38%,
+        oklch(0.26 0.05 155 / 0.82) 78%,
+        var(--forest-deep) 100%),
+      url("img/hero-rio-uruguay.webp") center 60% / cover no-repeat,
+      linear-gradient(180deg, oklch(0.75 0.14 55) 0%, var(--forest-deep) 100%);
     color: var(--paper);
     position: relative; overflow: hidden;
   }
@@ -301,6 +304,11 @@
     background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.25));
   }
   .galeria-item span { position: relative; z-index: 1; }
+  .galeria-item img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
   .galeria-item:nth-child(1) { background: linear-gradient(135deg, #c97847, #8b3f2a); }
   .galeria-item:nth-child(2) { transform: translateY(1.5rem); background: linear-gradient(135deg, #6b9c7a, #2d4a36); }
   .galeria-item:nth-child(3) { transform: translateY(-0.5rem); background: linear-gradient(135deg, #b8956a, #6b4f2a); }
@@ -541,12 +549,10 @@
       </div>
     </div>
     <div class="galeria-stack">
-      <div class="galeria-item reveal"><span>Atardecer</span></div>
-      <div class="galeria-item reveal"><span>Jardín</span></div>
-      <div class="galeria-item reveal"><span>Cabaña</span></div>
-      <div class="galeria-item reveal"><span>Habitación</span></div>
-      <div class="galeria-item reveal"><span>Cocina</span></div>
-      <div class="galeria-item reveal"><span>Baño</span></div>
+      <div class="galeria-item reveal"><img src="img/atardecer.webp" alt="Atardecer sobre el río Uruguay" width="900" height="1200" loading="lazy" decoding="async"><span>Atardecer</span></div>
+      <div class="galeria-item reveal"><img src="img/el-rio.webp" alt="El río Uruguay al caer la tarde" width="900" height="1200" loading="lazy" decoding="async"><span>El río</span></div>
+      <div class="galeria-item reveal"><img src="img/el-jardin.webp" alt="Plantas y flores del jardín" width="900" height="1200" loading="lazy" decoding="async"><span>El jardín</span></div>
+      <div class="galeria-item reveal"><img src="img/la-costa.webp" alt="La costa del río Uruguay al atardecer" width="900" height="1200" loading="lazy" decoding="async"><span>La costa</span></div>
     </div>
   </div>
 </section>
@@ -611,6 +617,7 @@
   <div class="footer-logo">Munay Ki <em>te quiero</em></div>
   <p>San José, Entre Ríos · Argentina</p>
   <p style="opacity: 0.6; margin-top: 0.5rem; font-size: 0.8rem;">© 2026 Munay Ki · Cabañas · Por Romina Medina</p>
+  <p style="opacity: 0.5; margin-top: 0.4rem; font-size: 0.72rem;">Fotos de paisaje: Ezarate, Nahuel9m y Andrés González — Wikimedia Commons (CC BY-SA). Las fotos de las cabañas son las que falten subir.</p>
 </footer>
 
 <!--
